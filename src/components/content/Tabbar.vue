@@ -29,8 +29,6 @@
 </template>
 
 <script>
-import { Tabbar, TabbarItem } from "vant"
-
 export default {
   data() {
     return {
@@ -50,10 +48,6 @@ export default {
         }
       ]
     }
-  },
-  components: {
-    Tabbar,
-    TabbarItem
   }
 }
 </script>

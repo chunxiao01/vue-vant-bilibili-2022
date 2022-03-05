@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import { Search } from "vant"
-
 export default {
   data() {
     return {
@@ -37,9 +35,6 @@ export default {
     onCancel() {
       this.$router.replace("/home")
     }
-  },
-  components: {
-    Search
   }
 }
 </script>

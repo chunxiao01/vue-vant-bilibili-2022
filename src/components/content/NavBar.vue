@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import { NavBar } from "vant"
-import { Toast } from "vant"
 export default {
   props: {
     isShowNavbarTitleArrow: Boolean
@@ -22,9 +20,6 @@ export default {
     return {
       titlearrow: false
     }
-  },
-  components: {
-    NavBar
   },
   methods: {
     onClickLeft() {
