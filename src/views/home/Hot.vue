@@ -3,10 +3,6 @@
     <video-card />
     <video-card />
     <video-card />
-    <video-card />
-    <video-card />
-    <video-card />
-    <video-card />
   </div>
 </template>
 

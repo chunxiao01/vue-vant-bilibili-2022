@@ -16,22 +16,31 @@
         </a>
         <div class="videocard-content">
           <div class="videocard-title">
-            <span>标题</span>
+            <span class="videocard-title-text"
+              >如果新垣结衣对你说【生日快乐】</span
+            >
           </div>
-          <span class="videocard-tag"></span>
+          <div class="videocard-tag">
+            <span class="videocard-tag-text"></span>
+          </div>
           <div class="videocard-up">
             <span class="videocard-up-icon"></span>
             <span class="videocard-up-name">垣气满满的gakki</span>
           </div>
           <div class="videocard-play-info">
             <div class="videocard-play-info-detail videocard-play-counter">
-              <span>653</span>
+              <div class="videocard-play-icon__img">
+                <img src="~assets/img/home/hot/play.svg" alt="" />
+              </div>
+              <span class="videocard-play-counter-num">653</span>
             </div>
             <div class="videocard-play-info-detail videocard-play-date">
-              <span>3-5</span>
+              <span class="videocard-play-date-text">3-5</span>
             </div>
             <div class="videocard-play-info-detail videocard-play-share">
-              <span>=></span>
+              <div class="videocard-share-icon__img">
+                <img src="~assets/img/home/hot/share.svg" alt="" />
+              </div>
             </div>
           </div>
         </div>
@@ -121,19 +130,13 @@ export default {}
   line-height: 16px;
   word-wrap: break-word;
 }
-
-.videocard-tag {
-  position: relative;
-  display: inline-block;
+.videocard-tag-text {
   border: 1px solid #ea6da3;
   color: #ea6da3;
   font-size: 12px;
-  height: 13px;
-  line-height: 13px;
-  width: 48px;
   border-radius: 2px;
 }
-.videocard-tag::before {
+.videocard-tag-text::before {
   content: "百万播放";
   pointer-events: none;
 }
@@ -143,9 +146,6 @@ export default {}
   border: 1px solid #999;
   color: #999;
   font-size: 12px;
-  height: 13px;
-  line-height: 11px;
-  width: 14px;
   border-radius: 2px;
   margin-right: 1px;
 }
@@ -157,11 +157,29 @@ export default {}
   font-size: 12px;
   color: #999;
 }
-
 .videocard-play-info {
   display: flex;
 }
 .videocard-play-info-detail {
   flex: 1;
+}
+.videocard-play-icon__img,
+.videocard-share-icon__img {
+  position: relative;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.videocard-play-counter-num,
+.videocard-play-date {
+  font-size: 16px;
+}
+.videocard-play-date {
+  text-align: center;
+}
+.videocard-play-share {
+  text-align: right;
 }
 </style>
