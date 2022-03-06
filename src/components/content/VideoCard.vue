@@ -32,7 +32,7 @@
               <div class="videocard-play-icon__img">
                 <img src="~assets/img/home/hot/play.svg" alt="" />
               </div>
-              <span class="videocard-play-counter-num">653</span>
+              <span class="videocard-play-counter-text">653</span>
             </div>
             <div class="videocard-play-info-detail videocard-play-date">
               <span class="videocard-play-date-text">3-5</span>
@@ -172,8 +172,8 @@ export default {}
   margin-right: 3px;
   vertical-align: middle;
 }
-.videocard-play-counter-num,
-.videocard-play-date {
+.videocard-play-counter-text,
+.videocard-play-date-text {
   font-size: 16px;
 }
 .videocard-play-date {
