@@ -59,6 +59,7 @@ export default {}
   box-sizing: border-box;
   padding: 8px 16px;
   background-color: #fafafa;
+  border-bottom: 1px solid #cfcfcf;
 }
 .videocard:not(:first-child) {
   margin-top: 8px;
@@ -145,7 +146,7 @@ export default {}
   display: inline-block;
   border: 1px solid #999;
   color: #999;
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 2px;
   margin-right: 1px;
 }
@@ -154,7 +155,7 @@ export default {}
   pointer-events: none;
 }
 .videocard-up-name {
-  font-size: 12px;
+  font-size: 14px;
   color: #999;
 }
 .videocard-play-info {
