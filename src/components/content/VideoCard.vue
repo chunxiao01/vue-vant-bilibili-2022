@@ -57,7 +57,7 @@ export default {}
 .videocard {
   position: relative;
   box-sizing: border-box;
-  padding: 8px 16px;
+  padding: 8px 12px;
   background-color: #fafafa;
   border-bottom: 1px solid #cfcfcf;
 }
@@ -72,8 +72,8 @@ export default {}
   -webkit-box-flex: 0;
   -webkit-flex: none;
   flex: none;
-  width: 146px;
-  height: 82px;
+  width: 156px;
+  height: 88px;
   margin-right: 8px;
 }
 .videocard-content {
