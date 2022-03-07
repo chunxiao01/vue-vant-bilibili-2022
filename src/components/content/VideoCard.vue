@@ -111,7 +111,7 @@ export default {
 .videocard {
   position: relative;
   box-sizing: border-box;
-  padding: 8px 12px;
+  padding: 8px;
   background-color: #fafafa;
   border-bottom: 1px solid #cfcfcf;
 }
