@@ -16,7 +16,9 @@
             />
           </div>
           <div class="videocard-time">
-            <span class="videocard-time-text">{{ videoinfos.duration }}</span>
+            <span class="videocard-time-text">{{
+              secondsFormat(videoinfos.duration)
+            }}</span>
           </div>
         </a>
         <div class="videocard-content">
@@ -72,6 +74,7 @@ export default {
     }
   },
   methods: {
+    //数字格式化
     playCounterFormat(num) {
       //将数字转换为字符串, 然后通过split方法用.分隔, 取到第0个
       let numStr = num.toString().split(".")[0]
@@ -100,6 +103,7 @@ export default {
     isShowPlayTag(tag) {
       return tag
     },
+    //日期格式化
     playDateFormat(date) {
       if (date < new Date("1970-12-31").getTime()) {
         date = date * 1000 //添加毫秒数
@@ -107,6 +111,25 @@ export default {
       let month = new Date(date).getMonth() + 1
       let day = new Date(date).getDate()
       return month + "-" + day
+    },
+    //秒时间格式化
+    secondsFormat(second) {
+      second = parseInt(second)
+      let min = 0 // 分钟
+      let h = 0 // 小时
+      if (second > 60) {
+        min = parseInt(second / 60)
+        second = parseInt(second % 60)
+        if (min > 60) {
+          h = parseInt(min / 60)
+          min = parseInt(min % 60)
+        }
+      }
+      let hour_str = h > 0 ? h.toString().padStart(2, "0") + ":" : ""
+      let min_str = min > 0 ? min.toString().padStart(2, "0") + ":" : ""
+      let second_str = second > 0 ? second.toString().padStart(2, "0") : ""
+      let result = `${hour_str}${min_str}${second_str}`
+      return result
     },
     clickVideoPlayLink(aid, bvid, cid) {
       console.log(aid, bvid, cid)
@@ -133,8 +156,8 @@ export default {
   -webkit-box-flex: 0;
   -webkit-flex: none;
   flex: none;
-  width: 156px;
-  height: 88px;
+  width: 178px;
+  height: 100px;
   margin-right: 8px;
 }
 .videocard-content {
@@ -153,7 +176,7 @@ export default {
   -webkit-justify-content: space-between;
   justify-content: space-between;
   min-width: 0;
-  min-height: 82px;
+  min-height: 100px;
 }
 .videocard-img-container {
   position: relative;
