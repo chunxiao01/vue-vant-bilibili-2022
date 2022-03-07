@@ -1,41 +1,53 @@
 <template>
   <div>
-    <div class="videocard">
+    <div
+      class="videocard"
+      @click="
+        clickVideoPlayLink(videoinfos.aid, videoinfos.bvid, videoinfos.cid)
+      "
+    >
       <div class="videocard-container">
         <a class="videocard-img">
           <div class="videocard-img-container">
             <img
-              src="~assets/img/home/hot/hot_1.webp"
+              :src="videoinfos.pic + '@412w_232h_1c.webp'"
               alt=""
               class="videocard-img__img"
             />
           </div>
           <div class="videocard-time">
-            <span class="videocard-time-text">00:03:00</span>
+            <span class="videocard-time-text">{{ videoinfos.duration }}</span>
           </div>
         </a>
         <div class="videocard-content">
           <div class="videocard-title">
-            <span class="videocard-title-text"
-              >如果新垣结衣对你说【生日快乐】</span
-            >
+            <span class="videocard-title-text">{{ videoinfos.title }}</span>
           </div>
-          <div class="videocard-tag">
-            <span class="videocard-tag-text"></span>
+          <div
+            class="videocard-tag"
+            v-if="isShowPlayTag(videoinfos.rcmd_reason.content)"
+          >
+            <span class="videocard-tag-text">{{
+              videoinfos.rcmd_reason.content
+            }}</span>
           </div>
           <div class="videocard-up">
             <span class="videocard-up-icon"></span>
-            <span class="videocard-up-name">垣气满满的gakki</span>
+            <span class="videocard-up-name">{{ videoinfos.owner.name }}</span>
           </div>
           <div class="videocard-play-info">
             <div class="videocard-play-info-detail videocard-play-counter">
               <div class="videocard-play-icon__img">
                 <img src="~assets/img/home/hot/play.svg" alt="" />
               </div>
-              <span class="videocard-play-counter-text">653</span>
+              <span class="videocard-play-counter-text">{{
+                playCounterFormat(videoinfos.stat.view)
+              }}</span>
             </div>
             <div class="videocard-play-info-detail videocard-play-date">
-              <span class="videocard-play-date-text">3-5</span>
+              <span class="videocard-play-date-text">{{
+                playDateFormat(videoinfos.ctime)
+              }}</span>
             </div>
             <div class="videocard-play-info-detail videocard-play-share">
               <div class="videocard-share-icon__img">
@@ -50,8 +62,50 @@
 </template>
 
 <script>
-const videoCardProps = {}
-export default {}
+export default {
+  props: ["videoinfos"],
+  methods: {
+    playCounterFormat(num) {
+      //将数字转换为字符串, 然后通过split方法用.分隔, 取到第0个
+      let numStr = num.toString().split(".")[0]
+      let point = 1
+      if (numStr.length < 6) {
+        // 判断数字有多长,如果小于6,,表示10万以内的数字,让其直接显示
+        console.log(numStr)
+        return numStr
+      } else if (numStr.length >= 6 && numStr.length <= 8) {
+        // 如果数字大于6位,小于8位,让其数字后面加单位万
+        let decimal = numStr.substring(
+          numStr.length - 4,
+          numStr.length - 4 + point
+        )
+        // 由千位,百位组成的一个数字
+        return parseFloat(parseInt(num / 10000) + "." + decimal) + "万"
+      } else if (numStr.length > 8) {
+        // 如果数字大于8位,让其数字后面加单位亿
+        let decimal = numStr.substring(
+          numStr.length - 8,
+          numStr.length - 8 + point
+        )
+        return parseFloat(parseInt(num / 100000000) + "." + decimal) + "亿"
+      }
+    },
+    isShowPlayTag(tag) {
+      return tag
+    },
+    playDateFormat(date) {
+      if (date < new Date("1970-12-31").getTime()) {
+        date = date * 1000 //添加毫秒数
+      }
+      let month = new Date(date).getMonth() + 1
+      let day = new Date(date).getDate()
+      return month + "-" + day
+    },
+    clickVideoPlayLink(aid, bvid, cid) {
+      console.log(aid, bvid, cid)
+    }
+  }
+}
 </script>
 <style>
 .videocard {
@@ -110,8 +164,9 @@ export default {}
   border-radius: 8px;
 }
 .videocard-time {
-  display: inling-block;
+  display: inline-block;
   position: absolute;
+  padding: 1px;
   bottom: 3px;
   right: 5px;
   background: rgba(0, 0, 0, 0.3);
@@ -129,6 +184,7 @@ export default {}
   max-height: 32px;
   font-weight: 500;
   line-height: 16px;
+  font-size: 15px;
   word-wrap: break-word;
 }
 .videocard-tag-text {
@@ -138,7 +194,7 @@ export default {}
   border-radius: 2px;
 }
 .videocard-tag-text::before {
-  content: "百万播放";
+  content: "";
   pointer-events: none;
 }
 .videocard-up-icon {
@@ -161,7 +217,13 @@ export default {}
 .videocard-play-info {
   display: flex;
 }
-.videocard-play-info-detail {
+.videocard-play-date {
+  width: 70px;
+}
+.videocard-play-share {
+  width: 50px;
+}
+.videocard-play-counter {
   flex: 1;
 }
 .videocard-play-icon__img,
@@ -175,7 +237,8 @@ export default {}
 }
 .videocard-play-counter-text,
 .videocard-play-date-text {
-  font-size: 16px;
+  font-size: 14px;
+  color: #666;
 }
 .videocard-play-date {
   text-align: center;

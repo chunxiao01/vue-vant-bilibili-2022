@@ -52,4 +52,12 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.van-tabbar-item {
+  font-size: 16px;
+  font-weight: 500;
+}
+.van-tabbar-item__icon img {
+  height: 24px;
+}
+</style>

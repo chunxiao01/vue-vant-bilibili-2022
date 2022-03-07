@@ -2,7 +2,7 @@
   <div>
     <van-nav-bar
       title=""
-      left-text="哔哩哔哩"
+      :left-text="navbartext"
       :left-arrow="isShowNavbarTitleArrow"
       nav-bar-text-color="#000"
       @click-left="onClickLeft"
@@ -14,7 +14,8 @@
 <script>
 export default {
   props: {
-    isShowNavbarTitleArrow: Boolean
+    isShowNavbarTitleArrow: Boolean,
+    navbartext: String
   },
   data() {
     return {
