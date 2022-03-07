@@ -63,7 +63,14 @@
 
 <script>
 export default {
-  props: ["videoinfos"],
+  props: {
+    videoinfos: {
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
   methods: {
     playCounterFormat(num) {
       //将数字转换为字符串, 然后通过split方法用.分隔, 取到第0个
