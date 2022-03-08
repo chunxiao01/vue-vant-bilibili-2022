@@ -2,40 +2,38 @@
   <div>
     <div
       class="videocard"
-      @click="
-        clickVideoPlayLink(videoinfos.aid, videoinfos.bvid, videoinfos.cid)
-      "
+      @click="clickVideoPlayLink(videoinfo.aid, videoinfo.bvid, videoinfo.cid)"
     >
       <div class="videocard-container">
         <a class="videocard-img">
           <div class="videocard-img-container">
             <img
-              :src="videoinfos.pic + '@412w_232h_1c.webp'"
+              :src="videoinfo.pic + '@412w_232h_1c.webp'"
               alt=""
               class="videocard-img__img"
             />
           </div>
           <div class="videocard-time">
             <span class="videocard-time-text">{{
-              secondsFormat(videoinfos.duration)
+              secondsFormat(videoinfo.duration)
             }}</span>
           </div>
         </a>
         <div class="videocard-content">
           <div class="videocard-title">
-            <span class="videocard-title-text">{{ videoinfos.title }}</span>
+            <span class="videocard-title-text">{{ videoinfo.title }}</span>
           </div>
           <div
             class="videocard-tag"
-            v-if="isShowPlayTag(videoinfos.rcmd_reason.content)"
+            v-if="isShowPlayTag(videoinfo.rcmd_reason.content)"
           >
             <span class="videocard-tag-text">{{
-              videoinfos.rcmd_reason.content
+              videoinfo.rcmd_reason.content
             }}</span>
           </div>
           <div class="videocard-up">
             <span class="videocard-up-icon"></span>
-            <span class="videocard-up-name">{{ videoinfos.owner.name }}</span>
+            <span class="videocard-up-name">{{ videoinfo.owner.name }}</span>
           </div>
           <div class="videocard-play-info">
             <div class="videocard-play-info-detail videocard-play-counter">
@@ -43,12 +41,12 @@
                 <img src="~assets/img/home/hot/play.svg" alt="" />
               </div>
               <span class="videocard-play-counter-text">{{
-                playCounterFormat(videoinfos.stat.view)
+                playCounterFormat(videoinfo.stat.view)
               }}</span>
             </div>
             <div class="videocard-play-info-detail videocard-play-date">
               <span class="videocard-play-date-text">{{
-                playDateFormat(videoinfos.ctime)
+                playDateFormat(videoinfo.ctime)
               }}</span>
             </div>
             <div class="videocard-play-info-detail videocard-play-share">
@@ -66,7 +64,7 @@
 <script>
 export default {
   props: {
-    videoinfos: {
+    videoinfo: {
       type: Object,
       default() {
         return {}

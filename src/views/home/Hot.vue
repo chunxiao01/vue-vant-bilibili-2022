@@ -1,15 +1,11 @@
 <template>
   <div class="videolist_container">
-    <video-card
-      v-for="(video, index) in videolistdata.videolist"
-      :key="index"
-      :videoinfos="video"
-    />
+    <video-list :videolist="videolistdata.videolist" />
   </div>
 </template>
 
 <script>
-import VideoCard from "components/content/VideoCard"
+import VideoList from "components/content/videolist/VideoList"
 import { getHomeHotMultidata } from "network/home/hot_request"
 
 export default {
@@ -22,7 +18,7 @@ export default {
       }
     }
   },
-  components: { VideoCard },
+  components: { VideoList },
   created() {
     this.getHomeHotVideoListData(
       this.videolistdata.ps,
