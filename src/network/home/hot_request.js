@@ -1,12 +1,17 @@
 import { request } from "../request"
 
-const getHomeHotMultidata = () => {
+/*
+获取首页-热门 数据
+ps:每页视频数量
+pn:页数
+*/
+const getHomeHotMultidata = (ps, pn) => {
   return request({
     // url: "https://www.bilibili.com/index/ding.json"
-    url: "http://127.0.0.1:8000/api/bilibili_hot",
+    url: "/bilibili_hot",
     params: {
-      ps: 20,
-      pn: 2
+      ps,
+      pn
     }
   })
 }
