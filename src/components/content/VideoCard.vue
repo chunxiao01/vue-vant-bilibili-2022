@@ -81,7 +81,6 @@ export default {
       let point = 1
       if (numStr.length < 6) {
         // 判断数字有多长,如果小于6,,表示10万以内的数字,让其直接显示
-        console.log(numStr)
         return numStr
       } else if (numStr.length >= 6 && numStr.length <= 8) {
         // 如果数字大于6位,小于8位,让其数字后面加单位万
@@ -126,8 +125,8 @@ export default {
         }
       }
       let hour_str = h > 0 ? h.toString().padStart(2, "0") + ":" : ""
-      let min_str = min > 0 ? min.toString().padStart(2, "0") + ":" : ""
-      let second_str = second > 0 ? second.toString().padStart(2, "0") : ""
+      let min_str = min.toString().padStart(2, "0") + ":"
+      let second_str = second.toString().padStart(2, "0")
       let result = `${hour_str}${min_str}${second_str}`
       return result
     },
@@ -199,7 +198,7 @@ export default {
   padding: 1px;
   bottom: 3px;
   right: 5px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   color: #eee;
   font-size: 14px;
   border-radius: 5px;
