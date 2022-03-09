@@ -1,58 +1,57 @@
 <template>
-  <div>
-    <div
-      class="videocard"
-      @click="clickVideoPlayLink(videoinfo.aid, videoinfo.bvid, videoinfo.cid)"
-    >
-      <div class="videocard-container">
-        <a class="videocard-img">
-          <div class="videocard-img-container">
-            <img
-              :src="videoinfo.pic + '@412w_232h_1c.webp'"
-              alt=""
-              class="videocard-img__img"
-            />
-          </div>
-          <div class="videocard-time">
-            <span class="videocard-time-text">{{
-              secondsFormat(videoinfo.duration)
+  <div
+    class="videocard"
+    @click="clickVideoPlayLink(videoinfo.aid, videoinfo.bvid, videoinfo.cid)"
+  >
+    <div class="videocard-container">
+      <a class="videocard-img">
+        <div class="videocard-img-container">
+          <img
+            :src="videoinfo.pic + '@412w_232h_1c.webp'"
+            alt=""
+            class="videocard-img__img"
+            @load="imgload"
+          />
+        </div>
+        <div class="videocard-time">
+          <span class="videocard-time-text">{{
+            secondsFormat(videoinfo.duration)
+          }}</span>
+        </div>
+      </a>
+      <div class="videocard-content">
+        <div class="videocard-title">
+          <span class="videocard-title-text">{{ videoinfo.title }}</span>
+        </div>
+        <div
+          class="videocard-tag"
+          v-if="isShowPlayTag(videoinfo.rcmd_reason.content)"
+        >
+          <span class="videocard-tag-text">{{
+            videoinfo.rcmd_reason.content
+          }}</span>
+        </div>
+        <div class="videocard-up">
+          <span class="videocard-up-icon"></span>
+          <span class="videocard-up-name">{{ videoinfo.owner.name }}</span>
+        </div>
+        <div class="videocard-play-info">
+          <div class="videocard-play-info-detail videocard-play-counter">
+            <div class="videocard-play-icon__img">
+              <img src="~assets/img/home/hot/play.svg" alt="" />
+            </div>
+            <span class="videocard-play-counter-text">{{
+              playCounterFormat(videoinfo.stat.view)
             }}</span>
           </div>
-        </a>
-        <div class="videocard-content">
-          <div class="videocard-title">
-            <span class="videocard-title-text">{{ videoinfo.title }}</span>
-          </div>
-          <div
-            class="videocard-tag"
-            v-if="isShowPlayTag(videoinfo.rcmd_reason.content)"
-          >
-            <span class="videocard-tag-text">{{
-              videoinfo.rcmd_reason.content
+          <div class="videocard-play-info-detail videocard-play-date">
+            <span class="videocard-play-date-text">{{
+              playDateFormat(videoinfo.ctime)
             }}</span>
           </div>
-          <div class="videocard-up">
-            <span class="videocard-up-icon"></span>
-            <span class="videocard-up-name">{{ videoinfo.owner.name }}</span>
-          </div>
-          <div class="videocard-play-info">
-            <div class="videocard-play-info-detail videocard-play-counter">
-              <div class="videocard-play-icon__img">
-                <img src="~assets/img/home/hot/play.svg" alt="" />
-              </div>
-              <span class="videocard-play-counter-text">{{
-                playCounterFormat(videoinfo.stat.view)
-              }}</span>
-            </div>
-            <div class="videocard-play-info-detail videocard-play-date">
-              <span class="videocard-play-date-text">{{
-                playDateFormat(videoinfo.ctime)
-              }}</span>
-            </div>
-            <div class="videocard-play-info-detail videocard-play-share">
-              <div class="videocard-share-icon__img">
-                <img src="~assets/img/home/hot/share.svg" alt="" />
-              </div>
+          <div class="videocard-play-info-detail videocard-play-share">
+            <div class="videocard-share-icon__img">
+              <img src="~assets/img/home/hot/share.svg" alt="" />
             </div>
           </div>
         </div>
@@ -128,6 +127,9 @@ export default {
       let result = `${hour_str}${min_str}${second_str}`
       return result
     },
+    //监听图片加载完成事件
+    imgload() {},
+    //监听图片点击事件
     clickVideoPlayLink(aid, bvid, cid) {
       console.log(aid, bvid, cid)
     }

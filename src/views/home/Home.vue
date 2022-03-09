@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-view">
     <home-search />
     <home-tabs :active="active" :tabs="tabs">
       <template v-slot:tab1>
@@ -34,4 +34,4 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped></style>

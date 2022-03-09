@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <van-search disabled @click="onHomeSearchClick" />
-  </div>
+  <van-search disabled @click="onHomeSearchClick" />
 </template>
 
 <script>
