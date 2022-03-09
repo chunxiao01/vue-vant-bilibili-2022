@@ -1,7 +1,6 @@
 <template>
   <div class="videolist_container">
     <scroll
-      v-if="isShowVideolist"
       class="__scroll__wrapper"
       ref="scrollcpn"
       :probeType="3"
@@ -13,14 +12,15 @@
     >
       <video-list class="videolist_content" :videolist="allvideolist" />
     </scroll>
+    <back-top v-show="isShowbacktop" @click.native="clickBackTop" />
+  </div>
+  <!-- <div>
     <van-empty
-      v-else
       class="custom-image"
       :image="emptyvideoimgsrc"
       description="网络请求失败，请稍后再试"
     />
-    <back-top v-show="isShowbacktop" @click.native="clickBackTop" />
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -47,7 +47,7 @@ export default {
       return this.videolistdata.videolist
     },
     isShowVideolist() {
-      return this.videolistdata.videolist.length > 0
+      return
     }
   },
   components: { Scroll, BackTop, VideoList },
@@ -65,6 +65,14 @@ export default {
       dom_scrollwrapper[0].style.height = this.setscrollwrapperheight() + "px"
     }
   },
+  // updated() {
+  //   const dom_scrollwrapper =
+  //     document.getElementsByClassName("__scroll__wrapper")
+  //   if (dom_scrollwrapper && dom_scrollwrapper[0]) {
+  //     dom_scrollwrapper[0].style.height = this.setscrollwrapperheight() + "px"
+  //   }
+  //   console.log(dom_scrollwrapper[0])
+  // },
   methods: {
     //动态设置滚动条wrapper高度 body:100vh 减去顶部和底部高度
     setscrollwrapperheight() {
@@ -82,7 +90,9 @@ export default {
         } else {
           console.log("数据请求失败!")
         }
-        this.$refs.scrollcpn.scrollFinishPullUp()
+        if (this.$refs.scrollcpn) {
+          this.$refs.scrollcpn.scrollFinishPullUp()
+        }
       })
     },
 
@@ -105,6 +115,11 @@ export default {
     clickBackTop() {
       this.$refs.scrollcpn.scrollBackTop(0, 0, 800)
     }
+
+    //网络请求失败
+    // NetworkErr() {
+    //   return this.videolistdata.videolist.length === 0
+    // }
   }
 }
 </script>
