@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <van-nav-bar
-      title=""
-      :left-text="navbartext"
-      :left-arrow="isShowNavbarTitleArrow"
-      nav-bar-text-color="#000"
-      @click-left="onClickLeft"
-    >
-    </van-nav-bar>
-  </div>
+  <van-nav-bar
+    title=""
+    :left-text="navbartext"
+    :left-arrow="isShowNavbarTitleArrow"
+    nav-bar-text-color="#000"
+    @click-left="onClickLeft"
+  >
+  </van-nav-bar>
 </template>
 
 <script>
