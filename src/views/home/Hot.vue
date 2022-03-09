@@ -1,6 +1,7 @@
 <template>
   <div class="videolist_container">
     <scroll
+      v-if="isShowVideolist"
       class="__scroll__wrapper"
       ref="scrollcpn"
       :probeType="3"
@@ -10,8 +11,14 @@
       @scrollposition="scrollPosition"
       @scrollpullup="scrollPullUpDoMore"
     >
-      <video-list class="videolist_content" :videolist="showvideolist" />
+      <video-list class="videolist_content" :videolist="allvideolist" />
     </scroll>
+    <van-empty
+      v-else
+      class="custom-image"
+      :image="emptyvideoimgsrc"
+      description="网络请求失败，请稍后再试"
+    />
     <back-top v-show="isShowbacktop" @click.native="clickBackTop" />
   </div>
 </template>
@@ -31,12 +38,16 @@ export default {
         pn: 0,
         videolist: []
       },
-      isShowbacktop: false
+      isShowbacktop: false,
+      emptyvideoimgsrc: require("@/assets/img/common/network_error.svg")
     }
   },
   computed: {
-    showvideolist() {
+    allvideolist() {
       return this.videolistdata.videolist
+    },
+    isShowVideolist() {
+      return this.videolistdata.videolist.length > 0
     }
   },
   components: { Scroll, BackTop, VideoList },
@@ -50,7 +61,9 @@ export default {
   mounted() {
     const dom_scrollwrapper =
       document.getElementsByClassName("__scroll__wrapper")
-    dom_scrollwrapper[0].style.height = this.setscrollwrapperheight() + "px"
+    if (dom_scrollwrapper && dom_scrollwrapper[0]) {
+      dom_scrollwrapper[0].style.height = this.setscrollwrapperheight() + "px"
+    }
   },
   methods: {
     //动态设置滚动条wrapper高度 body:100vh 减去顶部和底部高度
@@ -96,8 +109,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .__scroll__wrapper {
   overflow: hidden;
+}
+.custom-image .van-empty__image {
+  width: 100px;
+  height: 100px;
 }
 </style>
