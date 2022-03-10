@@ -1,5 +1,12 @@
 <template>
-  <div class="videolist_container">
+  <div v-if="isNetWorkErr" v-cloak>
+    <van-empty
+      class="custom-image"
+      :image="emptyvideoimgsrc"
+      description="网络请求失败，请稍后再试"
+    />
+  </div>
+  <div v-else v-cloak class="videolist_container">
     <scroll
       class="__scroll__wrapper"
       ref="scrollcpn"
@@ -10,17 +17,13 @@
       @scrollposition="scrollPosition"
       @scrollpullup="scrollPullUpDoMore"
     >
-      <video-list class="videolist_content" :videolist="allvideolist" />
+      <video-list
+        class="videolist_content"
+        :videolist="videolistdata.videolist"
+      />
     </scroll>
     <back-top v-show="isShowbacktop" @click.native="clickBackTop" />
   </div>
-  <!-- <div>
-    <van-empty
-      class="custom-image"
-      :image="emptyvideoimgsrc"
-      description="网络请求失败，请稍后再试"
-    />
-  </div> -->
 </template>
 
 <script>
@@ -39,15 +42,8 @@ export default {
         videolist: []
       },
       isShowbacktop: false,
+      isNetWorkErr: false,
       emptyvideoimgsrc: require("@/assets/img/common/network_error.svg")
-    }
-  },
-  computed: {
-    allvideolist() {
-      return this.videolistdata.videolist
-    },
-    isShowVideolist() {
-      return
     }
   },
   components: { Scroll, BackTop, VideoList },
@@ -65,14 +61,16 @@ export default {
       dom_scrollwrapper[0].style.height = this.setscrollwrapperheight() + "px"
     }
   },
-  // updated() {
-  //   const dom_scrollwrapper =
-  //     document.getElementsByClassName("__scroll__wrapper")
-  //   if (dom_scrollwrapper && dom_scrollwrapper[0]) {
-  //     dom_scrollwrapper[0].style.height = this.setscrollwrapperheight() + "px"
-  //   }
-  //   console.log(dom_scrollwrapper[0])
-  // },
+  updated() {
+    const dom_scrollwrapper =
+      document.getElementsByClassName("__scroll__wrapper")
+    if (dom_scrollwrapper && dom_scrollwrapper[0]) {
+      dom_scrollwrapper[0].style.height = this.setscrollwrapperheight() + "px"
+    }
+    if (this.$refs.scrollcpn) {
+      this.$refs.scrollcpn.scroll.refresh()
+    }
+  },
   methods: {
     //动态设置滚动条wrapper高度 body:100vh 减去顶部和底部高度
     setscrollwrapperheight() {
@@ -84,15 +82,24 @@ export default {
     //动态请求数据
     getHomeHotVideoListData(ps, pn) {
       getHomeHotMultidata(ps, pn).then((res) => {
-        if (res && res.data.data.list) {
+        if (res && res.data.data.list && res.data.data.list.length > 0) {
+          console.log(res.data.data.list)
           this.videolistdata.videolist.push(...res.data.data.list)
           this.videolistdata.pn += 1
+        } else if (
+          res &&
+          res.data.data.list &&
+          res.data.data.list.length === 0
+        ) {
+          console.log("数据已全部加载完成!")
         } else {
           console.log("数据请求失败!")
         }
         if (this.$refs.scrollcpn) {
           this.$refs.scrollcpn.scrollFinishPullUp()
         }
+
+        this.isNetWorkErr = this.videolistdata.videolist.length === 0
       })
     },
 
@@ -116,9 +123,12 @@ export default {
       this.$refs.scrollcpn.scrollBackTop(0, 0, 800)
     }
 
-    //网络请求失败
+    // //网络请求失败
     // NetworkErr() {
-    //   return this.videolistdata.videolist.length === 0
+    //   const result =
+    //     this.videolistdata.videolist &&
+    //     this.videolistdata.videolist.length === 0
+    //   return result
     // }
   }
 }

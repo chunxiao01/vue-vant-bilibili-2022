@@ -10,7 +10,6 @@
             :src="videoinfo.pic + '@412w_232h_1c.webp'"
             alt=""
             class="videocard-img__img"
-            @load="imgload"
           />
         </div>
         <div class="videocard-time">
@@ -128,7 +127,7 @@ export default {
       return result
     },
     //监听图片加载完成事件
-    imgload() {},
+    //imgload() {},
     //监听图片点击事件
     clickVideoPlayLink(aid, bvid, cid) {
       console.log(aid, bvid, cid)
