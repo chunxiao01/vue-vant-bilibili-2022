@@ -64,6 +64,9 @@ export default {
     },
     scrollFinishPullUp() {
       this.scroll.finishPullUp()
+    },
+    scrollRefresh() {
+      this.scroll.refresh()
     }
   }
 }

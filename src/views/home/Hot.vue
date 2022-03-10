@@ -68,7 +68,7 @@ export default {
       dom_scrollwrapper[0].style.height = this.setscrollwrapperheight() + "px"
     }
     if (this.$refs.scrollcpn) {
-      this.$refs.scrollcpn.scroll.refresh()
+      this.$refs.scrollcpn.scrollRefresh()
     }
   },
   methods: {
@@ -83,7 +83,6 @@ export default {
     getHomeHotVideoListData(ps, pn) {
       getHomeHotMultidata(ps, pn).then((res) => {
         if (res && res.data.data.list && res.data.data.list.length > 0) {
-          console.log(res.data.data.list)
           this.videolistdata.videolist.push(...res.data.data.list)
           this.videolistdata.pn += 1
         } else if (
@@ -120,7 +119,9 @@ export default {
 
     //返回顶部
     clickBackTop() {
-      this.$refs.scrollcpn.scrollBackTop(0, 0, 800)
+      if (this.$refs.scrollcpn) {
+        this.$refs.scrollcpn.scrollBackTop(0, 0, 800)
+      }
     }
 
     // //网络请求失败
