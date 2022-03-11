@@ -83,14 +83,26 @@
       </div>
     </div>
     <van-divider :style="{ borderColor: '#999' }" />
-    <video-detail-card-list :videodetaillist="videodetaillistdata" />
+    <scroll
+      class="__scroll__wrapper"
+      ref="scrollcpn"
+      :probeType="3"
+      :click="true"
+      :pullUpLoad="true"
+      :observeDOM="true"
+    >
+      <video-detail-card-list :videodetaillist="videodetaillistdata" />
+    </scroll>
   </div>
 </template>
 
 <script>
+import Scroll from "components/common/scroll/Scroll"
+
 import VideoDetailCardList from "components/content/videodetaicardlist/VideoDetailCardList.vue"
+
 export default {
-  components: { VideoDetailCardList },
+  components: { VideoDetailCardList, Scroll },
   data() {
     return {
       activeNames: ["0"],
@@ -132,9 +144,28 @@ export default {
       }
     }
   },
+  mounted() {
+    const dom_scrollwrapper =
+      document.getElementsByClassName("__scroll__wrapper")
+    if (dom_scrollwrapper && dom_scrollwrapper[0]) {
+      dom_scrollwrapper[0].style.height = this.setscrollwrapperheight() + "px"
+    }
+    if (this.$refs.scrollcpn) {
+      this.$refs.scrollcpn.scrollRefresh()
+    }
+  },
   methods: {
     clickToggle() {
       this.isToggleup = !this.isToggleup
+    },
+    //动态设置滚动条wrapper高度 body:100vh 减去顶部和底部高度
+    setscrollwrapperheight() {
+      let _height = document.body.clientHeight
+      let _width = document.body.clientWidth
+      let _video_info_height = 236
+      let _scrollwrapper_height =
+        _height - (_width * 9) / 16 - _video_info_height
+      return _scrollwrapper_height
     }
   }
 }
@@ -273,5 +304,9 @@ export default {
 .video_detail_share_wechat::before {
   content: "💬";
   margin-right: 2px;
+}
+
+.__scroll__wrapper {
+  overflow: hidden;
 }
 </style>
