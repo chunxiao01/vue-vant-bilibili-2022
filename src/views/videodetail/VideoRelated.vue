@@ -88,21 +88,23 @@
       ref="scrollcpn"
       :probeType="3"
       :click="true"
-      :pullUpLoad="true"
+      :pullUpLoad="false"
       :observeDOM="true"
+      @scrollposition="scrollPosition"
     >
       <video-detail-card-list :videodetaillist="videodetaillistdata" />
     </scroll>
+    <back-top v-show="isShowbacktop" @click.native="clickBackTop" />
   </div>
 </template>
 
 <script>
 import Scroll from "components/common/scroll/Scroll"
-
+import BackTop from "components/common/backtop/BackTop"
 import VideoDetailCardList from "components/content/videodetaicardlist/VideoDetailCardList.vue"
 
 export default {
-  components: { VideoDetailCardList, Scroll },
+  components: { VideoDetailCardList, Scroll, BackTop },
   data() {
     return {
       activeNames: ["0"],
@@ -120,7 +122,8 @@ export default {
         videodetailplaybvid: ""
       },
       videodetailcopyright: "未经作者授权禁止转载",
-      videodetailshare: 0
+      videodetailshare: 0,
+      isShowbacktop: false //推荐相关视频列表是否回到顶部
     }
   },
   props: {
@@ -155,6 +158,7 @@ export default {
     }
   },
   methods: {
+    //判断折叠面板折叠
     clickToggle() {
       this.isToggleup = !this.isToggleup
     },
@@ -166,6 +170,17 @@ export default {
       let _scrollwrapper_height =
         _height - (_width * 9) / 16 - _video_info_height
       return _scrollwrapper_height
+    },
+    //滚动内容实时监听位置
+    scrollPosition(position) {
+      const position_y = Math.abs(position.y)
+      this.isShowbacktop = position_y > 1000
+    },
+    //返回顶部
+    clickBackTop() {
+      if (this.$refs.scrollcpn) {
+        this.$refs.scrollcpn.scrollBackTop(0, 0, 800)
+      }
     }
   }
 }
