@@ -60,6 +60,9 @@ export default {
     if (dom_scrollwrapper && dom_scrollwrapper[0]) {
       dom_scrollwrapper[0].style.height = this.setscrollwrapperheight() + "px"
     }
+    if (this.$refs.scrollcpn) {
+      this.$refs.scrollcpn.scrollRefresh()
+    }
   },
   updated() {
     const dom_scrollwrapper =
@@ -97,7 +100,7 @@ export default {
         if (this.$refs.scrollcpn) {
           this.$refs.scrollcpn.scrollFinishPullUp()
         }
-
+        //判断网络请求成功或者失败，是否显示网络请求失败提示信息
         this.isNetWorkErr = this.videolistdata.videolist.length === 0
       })
     },

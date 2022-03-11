@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <nav-bar :isShowNavbarTitleArrow="isShowTabBar" navbartext="哔哩哔哩" />
-    <router-view />
+    <nav-bar :isShowNavbarTitleArrow="isShowTabBar" :navbartext="navbartext" />
+    <router-view :key="$route.fullPath" />
     <tab-bar v-if="!isShowTabBar" />
   </div>
 </template>
@@ -12,13 +12,31 @@ import TabBar from "components/content/TabBar"
 
 export default {
   name: "App",
+  data() {
+    return {
+      //isShowTabBar: false,
+      //navbartext: "哔哩哔哩"
+    }
+  },
   computed: {
     isShowTabBar() {
-      return this.$route.path === "/search"
+      return (
+        this.$route.path === "/search" || this.$route.path === "/videodetail"
+      )
     },
     navbartext() {
-      const route_path = this.$route.path
+      // const route_path = this.$route.path
+      return "哔哩哔哩"
     }
+  },
+  mounted() {},
+  methods: {
+    // showTabBar(res) {
+    //   this.isShowTabBar = res
+    // },
+    // changeNavBarText(res) {
+    //   this.navbartext = res
+    // }
   },
   components: {
     TabBar,
@@ -31,5 +49,15 @@ export default {
 @import "assets/css/normalize.css";
 body {
   height: 100vh;
+}
+.van-nav-bar__left .van-icon-arrow-left {
+  color: #000;
+  font-weight: 600;
+  font-size: 20px;
+  margin-right: 15px;
+}
+.van-search__action {
+  font-weight: normal;
+  font-size: 17px;
 }
 </style>

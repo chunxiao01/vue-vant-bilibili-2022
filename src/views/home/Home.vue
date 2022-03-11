@@ -1,12 +1,12 @@
 <template>
   <div class="home-view">
     <home-search />
-    <home-tabs :active="active" :tabs="tabs">
+    <home-tabs :active="active" :tabs="tabs" ref="hometagscpn">
       <template v-slot:tab1>
-        <hot />
+        <hot ref="hotcpn" />
       </template>
       <template v-slot:tab2>
-        <zf />
+        <zf ref="zfcpn" />
       </template>
     </home-tabs>
   </div>
@@ -31,6 +31,14 @@ export default {
     Hot,
     Zf
   }
+  // activated() {
+  //   console.log("activated", this.$refs.hometagscpn.tagActive)
+  //   console.log("hotcpn:", this.$refs.hotcpn)
+  // },
+  // deactivated() {
+  //   console.log("deactivated:", this.$refs.hometagscpn.tagActive)
+  //   console.log("zfcpn:", this.$refs.zfcpn)
+  // }
 }
 </script>
 

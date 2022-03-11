@@ -1,7 +1,14 @@
 <template>
   <div
     class="videocard"
-    @click="clickVideoPlayLink(videoinfo.aid, videoinfo.bvid, videoinfo.cid)"
+    @click="
+      clickVideoPlayLink(
+        videoinfo.aid,
+        videoinfo.bvid,
+        videoinfo.cid,
+        videoinfo.short_link
+      )
+    "
   >
     <div class="videocard-container">
       <a class="videocard-img">
@@ -14,7 +21,7 @@
         </div>
         <div class="videocard-time">
           <span class="videocard-time-text">{{
-            secondsFormat(videoinfo.duration)
+            playSecondsFormat(videoinfo.duration)
           }}</span>
         </div>
       </a>
@@ -60,6 +67,8 @@
 </template>
 
 <script>
+import { numbersFormat, dateFormat, secondsFormat } from "common/utils"
+
 export default {
   props: {
     videoinfo: {
@@ -72,65 +81,39 @@ export default {
   methods: {
     //数字格式化
     playCounterFormat(num) {
-      //将数字转换为字符串, 然后通过split方法用.分隔, 取到第0个
-      let numStr = num.toString().split(".")[0]
-      let point = 1
-      if (numStr.length < 6) {
-        // 判断数字有多长,如果小于6,,表示10万以内的数字,让其直接显示
-        return numStr
-      } else if (numStr.length >= 6 && numStr.length <= 8) {
-        // 如果数字大于6位,小于8位,让其数字后面加单位万
-        let decimal = numStr.substring(
-          numStr.length - 4,
-          numStr.length - 4 + point
-        )
-        // 由千位,百位组成的一个数字
-        return parseFloat(parseInt(num / 10000) + "." + decimal) + "万"
-      } else if (numStr.length > 8) {
-        // 如果数字大于8位,让其数字后面加单位亿
-        let decimal = numStr.substring(
-          numStr.length - 8,
-          numStr.length - 8 + point
-        )
-        return parseFloat(parseInt(num / 100000000) + "." + decimal) + "亿"
-      }
+      return numbersFormat(num)
     },
+
+    //日期格式化
+    playDateFormat(date) {
+      return dateFormat(date)
+    },
+
+    //秒时间格式化
+    playSecondsFormat(second) {
+      return secondsFormat(second)
+    },
+
+    //是否显示视频tag
     isShowPlayTag(tag) {
       return tag
     },
-    //日期格式化
-    playDateFormat(date) {
-      if (date < new Date("1970-12-31").getTime()) {
-        date = date * 1000 //添加毫秒数
-      }
-      let month = new Date(date).getMonth() + 1
-      let day = new Date(date).getDate()
-      return month + "-" + day
-    },
-    //秒时间格式化
-    secondsFormat(second) {
-      second = parseInt(second)
-      let min = 0 // 分钟
-      let h = 0 // 小时
-      if (second > 60) {
-        min = parseInt(second / 60)
-        second = parseInt(second % 60)
-        if (min > 60) {
-          h = parseInt(min / 60)
-          min = parseInt(min % 60)
-        }
-      }
-      let hour_str = h > 0 ? h.toString().padStart(2, "0") + ":" : ""
-      let min_str = min.toString().padStart(2, "0") + ":"
-      let second_str = second.toString().padStart(2, "0")
-      let result = `${hour_str}${min_str}${second_str}`
-      return result
-    },
+
     //监听图片加载完成事件
     //imgload() {},
+
     //监听图片点击事件
-    clickVideoPlayLink(aid, bvid, cid) {
-      console.log(aid, bvid, cid)
+    clickVideoPlayLink(aid, bvid, cid, bvurl) {
+      console.log(aid, bvid, cid, bvurl)
+      // this.$router.push("/videodetail/" + bvid)
+      this.$router.push({
+        path: "/videodetail",
+        query: {
+          aid,
+          bvid,
+          cid
+        }
+      })
     }
   }
 }

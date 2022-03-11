@@ -5,6 +5,7 @@ const Home = () => import("views/home/Home")
 const Category = () => import("views/category/Category")
 const Profile = () => import("views/profile/Profile")
 const Search = () => import("views/search/Search")
+const VideoDetail = () => import("views/videodetail/VideoDetail")
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,10 @@ const routes = [
   {
     path: "/search",
     component: Search
+  },
+  {
+    path: "/videodetail",
+    component: VideoDetail
   }
 ]
 

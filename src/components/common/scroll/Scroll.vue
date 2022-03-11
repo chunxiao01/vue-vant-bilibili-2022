@@ -47,9 +47,11 @@ export default {
     })
 
     //滚动事件
-    this.scroll.on("scroll", (position) => {
-      this.$emit("scrollposition", position)
-    })
+    if (this.probeType === 2 || this.probeType === 3) {
+      this.scroll.on("scroll", (position) => {
+        this.$emit("scrollposition", position)
+      })
+    }
 
     //上拉加载更多
     if (this.pullUpLoad) {
