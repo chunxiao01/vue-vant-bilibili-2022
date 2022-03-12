@@ -171,6 +171,10 @@ export default {
             this.videorecommendlistdata.videorecommendlist =
               res.data.data.Related
           }
+          if (res.data.data.Reply) {
+            this.tab_reply_title =
+              "评论 " + numbersFormat(res.data.data.Reply.page.acount)
+          }
         }
       })
     },
