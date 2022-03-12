@@ -60,13 +60,6 @@ export default {
       }
     }
   },
-  beforeRouteUpdate(to, from, next) {
-    console.info("==当前路由id==" + this.$route.query.bvid)
-    if (this.$route.query.bvid) {
-      console.info("加载页面数据")
-    }
-    next()
-  },
   methods: {
     //数字格式化
     playCounterFormat(num) {

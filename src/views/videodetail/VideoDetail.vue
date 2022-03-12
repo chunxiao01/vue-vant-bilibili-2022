@@ -20,6 +20,8 @@
       <van-divider :style="{ borderColor: '#999' }" />
       <van-tab title="简介">
         <video-related
+          :videodetailauthor="videodetailauthordata"
+          :videodetailplayinfo="videodetailplayinfodata"
           :videodetaillistdata="videorecommendlistdata.videorecommendlist"
         />
       </van-tab>
@@ -34,7 +36,7 @@
 //视频详情 相关组件
 import VideoRelated from "views/videodetail/VideoRelated"
 import VideoReply from "views/videodetail/VideoReply"
-
+import { numbersFormat, dateFormat, secondsFormat } from "common/utils"
 //请求视频推荐数据
 import {
   getVideoDetailRelateddata,
@@ -48,6 +50,19 @@ export default {
       bvid: null,
       cid: null,
       bvurl: null,
+      videodetailauthordata: {
+        authorname: "bilibili",
+        authorfans: 0,
+        authoravatar: require("@/assets/img/common/0.svg")
+      },
+      videodetailplayinfodata: {
+        videodetailplaytitle: "",
+        videodetailplaydesc: "",
+        videodetailplaycount: 0,
+        videodetailplaydanmu: 0,
+        videodetailplaydate: "",
+        videodetailplaybvid: ""
+      },
       videorecommendlistdata: {
         videorecommendlist: []
       },
@@ -93,6 +108,29 @@ export default {
         need_rcmd_reason
       ).then((res) => {
         if (res && res.data && res.data.data) {
+          console.log(res.data.data)
+          if (res.data.data.Card) {
+            const { name, fans, face } = res.data.data.Card.card
+            this.videodetailauthordata.authorname = name
+            this.videodetailauthordata.authorfans = numbersFormat(fans)
+            this.videodetailauthordata.authoravatar = face
+          }
+          if (res.data.data.View) {
+            const title = res.data.data.View.title
+            const desc = res.data.data.View.desc
+            const { view, danmaku } = res.data.data.View.stat
+            const pubdate = res.data.data.View.pubdate
+            const bvid = res.data.data.View.bvid
+            this.videodetailplayinfodata.videodetailplaytitle = title
+            this.videodetailplayinfodata.videodetailplaydesc = desc
+            this.videodetailplayinfodata.videodetailplaycount =
+              numbersFormat(view)
+            this.videodetailplayinfodata.videodetailplaydanmu =
+              numbersFormat(danmaku)
+            this.videodetailplayinfodata.videodetailplaydate =
+              dateFormat(pubdate)
+            this.videodetailplayinfodata.videodetailplaybvid = bvid
+          }
           if (res.data.data.Related) {
             this.videorecommendlistdata.videorecommendlist =
               res.data.data.Related

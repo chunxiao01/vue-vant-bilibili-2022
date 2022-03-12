@@ -12,7 +12,7 @@
                 <span
                   class="video_detail_title"
                   :class="{ video_detail_title_toggle_up: isToggleup }"
-                  >{{ videodetailtitle }}</span
+                  >{{ videodetailplayinfo.videodetailplaytitle }}</span
                 >
               </div>
             </template>
@@ -49,9 +49,9 @@
                   {{ videodetailcopyright }}
                 </span>
               </div>
-              <div class="video_detail_author_sign">
-                <span class="video_detail_author_sign_text">
-                  {{ videodetailauthor.sign }}
+              <div class="video_detail_introduce">
+                <span class="video_detail_introduce_text">
+                  {{ videodetailplayinfo.videodetailplaydesc }}
                 </span>
               </div>
             </div>
@@ -109,18 +109,6 @@ export default {
     return {
       activeNames: ["0"],
       isToggleup: true,
-      videodetailauthor: {
-        authorname: "垣气满满的gakki",
-        authorfans: 0,
-        authoravatar: require("@/assets/img/common/0.svg"),
-        sign: "认识你自己！"
-      },
-      videodetailplayinfo: {
-        videodetailplaycount: 0,
-        videodetailplaydanmu: 0,
-        videodetailplaydate: "",
-        videodetailplaybvid: ""
-      },
       videodetailcopyright: "未经作者授权禁止转载",
       videodetailshare: 0,
       isShowbacktop: false //推荐相关视频列表是否回到顶部
@@ -135,12 +123,31 @@ export default {
       type: String,
       default: "热门"
     },
-    videodetailtitle: {
-      type: String,
-      default:
-        "这里是视频标题这里是视频标题这里是视频标题这里是视频标题这里是视频标题"
+    videodetailauthor: {
+      type: Object,
+      default() {
+        return {
+          authorname: "bilibili",
+          authorfans: 0,
+          authoravatar: require("@/assets/img/common/0.svg")
+        }
+      }
+    },
+    videodetailplayinfo: {
+      type: Object,
+      default() {
+        return {
+          videodetailplaytitle: "",
+          videodetailplaydesc: "",
+          videodetailplaycount: 0,
+          videodetailplaydanmu: 0,
+          videodetailplaydate: "",
+          videodetailplaybvid: ""
+        }
+      }
     },
     videodetaillistdata: {
+      //相关视频推荐列表
       type: Array,
       default() {
         return []
@@ -166,7 +173,7 @@ export default {
     setscrollwrapperheight() {
       let _height = document.body.clientHeight
       let _width = document.body.clientWidth
-      let _video_info_height = 236
+      let _video_info_height = 215
       let _scrollwrapper_height =
         _height - (_width * 9) / 16 - _video_info_height
       return _scrollwrapper_height
@@ -234,8 +241,17 @@ export default {
   display: flex;
   margin-bottom: 10px;
 }
-.video_detail_play_info span {
-  display: inline-block;
+.video_detail_play_date {
+  width: 40px;
+  font-size: 14px;
+}
+.video_detail_play_bvid {
+  width: 110px;
+  font-size: 14px;
+  text-align: right;
+}
+.video_detail_play_count,
+.video_detail_play_danmu {
   flex: 1;
   font-size: 14px;
 }
@@ -249,7 +265,7 @@ export default {
 .video_detail_copyright_text::before {
   content: "🚫";
 }
-.video_detail_author_sign_text {
+.video_detail_introduce_text {
   font-size: 14px;
 }
 
@@ -266,7 +282,7 @@ export default {
 .video_author_play {
   display: flex;
   align-items: center;
-  width: 150px;
+  width: 160px;
   height: 24px;
   font-size: 14px;
 }
@@ -297,7 +313,7 @@ export default {
   margin-top: 3px;
 }
 .video_author_play_count {
-  margin-right: 20px;
+  margin-right: 10px;
 }
 .video_detail_share_container {
   padding: 0 16px 10px;
