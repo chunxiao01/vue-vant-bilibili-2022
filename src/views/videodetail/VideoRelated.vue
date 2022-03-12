@@ -6,9 +6,11 @@
           <van-collapse-item name="1">
             <template #title>
               <div class="video_detail_title_info">
-                <span class="video_detail_tag" v-if="isShowVideoDetailTag">{{
-                  videodetailtag
-                }}</span>
+                <span
+                  class="video_detail_tag"
+                  v-if="videodetailplayinfo.isShowVideoDetailTag"
+                  >{{ videodetailplayinfo.videodetailplaytag }}</span
+                >
                 <span
                   class="video_detail_title"
                   :class="{ video_detail_title_toggle_up: isToggleup }"
@@ -44,9 +46,12 @@
                   videodetailplayinfo.videodetailplaybvid
                 }}</span>
               </div>
-              <div class="video_detail_copyright">
+              <div
+                class="video_detail_copyright"
+                v-if="videodetailplayinfo.isShowCopyRight"
+              >
                 <span class="video_detail_copyright_text">
-                  {{ videodetailcopyright }}
+                  {{ videodetailplayinfo.videodetailplaycopyright }}
                 </span>
               </div>
               <div class="video_detail_introduce">
@@ -76,7 +81,9 @@
           </div>
         </div>
         <div class="video_detail_share_container">
-          <span class="video_detail_collect">{{ videodetailshare }}</span>
+          <span class="video_detail_collect">{{
+            videodetailplayinfo.videodetailplayshare
+          }}</span>
           <span class="video_detail_share_playbill">分享海报</span>
           <span class="video_detail_share_wechat">分享好友</span>
         </div>
@@ -109,20 +116,10 @@ export default {
     return {
       activeNames: ["0"],
       isToggleup: true,
-      videodetailcopyright: "未经作者授权禁止转载",
-      videodetailshare: 0,
       isShowbacktop: false //推荐相关视频列表是否回到顶部
     }
   },
   props: {
-    isShowVideoDetailTag: {
-      type: Boolean,
-      default: true
-    },
-    videodetailtag: {
-      type: String,
-      default: "热门"
-    },
     videodetailauthor: {
       type: Object,
       default() {
@@ -142,7 +139,12 @@ export default {
           videodetailplaycount: 0,
           videodetailplaydanmu: 0,
           videodetailplaydate: "",
-          videodetailplaybvid: ""
+          videodetailplaybvid: "",
+          isShowCopyRight: false,
+          videodetailplaycopyright: "未经作者授权禁止转载",
+          videodetailplayshare: 0,
+          isShowVideoDetailTag: false,
+          videodetailplaytag: "热门"
         }
       }
     },

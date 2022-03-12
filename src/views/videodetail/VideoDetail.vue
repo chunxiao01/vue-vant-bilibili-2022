@@ -36,7 +36,7 @@
 //视频详情 相关组件
 import VideoRelated from "views/videodetail/VideoRelated"
 import VideoReply from "views/videodetail/VideoReply"
-import { numbersFormat, dateFormat, secondsFormat } from "common/utils"
+import { numbersFormat, dateFormat } from "common/utils"
 //请求视频推荐数据
 import {
   getVideoDetailRelateddata,
@@ -61,7 +61,12 @@ export default {
         videodetailplaycount: 0,
         videodetailplaydanmu: 0,
         videodetailplaydate: "",
-        videodetailplaybvid: ""
+        videodetailplaybvid: "",
+        isShowCopyRight: false,
+        videodetailplaycopyright: "未经作者授权禁止转载",
+        videodetailplayshare: 0,
+        isShowVideoDetailTag: false,
+        videodetailplaytag: "热门"
       },
       videorecommendlistdata: {
         videorecommendlist: []
@@ -118,9 +123,18 @@ export default {
           if (res.data.data.View) {
             const title = res.data.data.View.title
             const desc = res.data.data.View.desc
-            const { view, danmaku } = res.data.data.View.stat
+            const { view, danmaku, favorite } = res.data.data.View.stat
             const pubdate = res.data.data.View.pubdate
             const bvid = res.data.data.View.bvid
+            const isshowcoperight = res.data.data.View.rights.no_reprint === 1
+            const honor = res.data.data.View.honor_reply.honor
+            let tag = ""
+            let ishowtag = false
+            if (honor && honor.length > 0) {
+              tag = honor[honor.length - 1].desc
+              ishowtag = true
+            }
+
             this.videodetailplayinfodata.videodetailplaytitle = title
             this.videodetailplayinfodata.videodetailplaydesc = desc
             this.videodetailplayinfodata.videodetailplaycount =
@@ -130,6 +144,13 @@ export default {
             this.videodetailplayinfodata.videodetailplaydate =
               dateFormat(pubdate)
             this.videodetailplayinfodata.videodetailplaybvid = bvid
+            this.videodetailplayinfodata.isShowCopyRight = isshowcoperight
+            this.videodetailplayinfodata.videodetailplaycopyright =
+              "未经作者授权禁止转载"
+            this.videodetailplayinfodata.videodetailplayshare =
+              numbersFormat(favorite)
+            this.videodetailplayinfodata.isShowVideoDetailTag = ishowtag
+            this.videodetailplayinfodata.videodetailplaytag = tag
           }
           if (res.data.data.Related) {
             this.videorecommendlistdata.videorecommendlist =
