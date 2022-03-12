@@ -22,6 +22,15 @@
               <div class="video_detail_author">
                 <div class="video_detail_author_avatar">
                   <img :src="videodetailauthor.authoravatar" alt="" />
+                  <span
+                    class="video_detail_author_icon"
+                    v-if="videodetailauthor.officialverify.isShowVerify"
+                  >
+                    <img
+                      :src="videodetailauthor.officialverify.verifyiconurl"
+                      alt=""
+                    />
+                  </span>
                 </div>
                 <div class="video_detail_author_info">
                   <span class="video_detail_author_name">
@@ -66,6 +75,15 @@
           <div class="video_author_info">
             <span class="video_author_avatar">
               <img :src="videodetailauthor.authoravatar" alt="" />
+              <span
+                class="video_detail_author_icon"
+                v-if="videodetailauthor.officialverify.isShowVerify"
+              >
+                <img
+                  :src="videodetailauthor.officialverify.verifyiconurl"
+                  alt=""
+                />
+              </span>
             </span>
             <span class="video_author_name">{{
               videodetailauthor.authorname
@@ -126,7 +144,12 @@ export default {
         return {
           authorname: "bilibili",
           authorfans: 0,
-          authoravatar: require("@/assets/img/common/0.svg")
+          authoravatar: require("@/assets/img/common/0.svg"),
+          officialverify: {
+            isShowVerify: false,
+            verifytype: 0,
+            verifyiconurl: require("@/assets/img/verify/v_0.svg")
+          }
         }
       }
     },
@@ -154,6 +177,11 @@ export default {
       default() {
         return []
       }
+    }
+  },
+  computed: {
+    aauthoriconurl() {
+      return "url(" + this.authoriconurl + ")"
     }
   },
   mounted() {
@@ -300,6 +328,30 @@ export default {
   width: 20px;
   height: 20px;
   border-radius: 50%;
+}
+.video_author_avatar {
+  position: relative;
+}
+.video_author_avatar > .video_detail_author_icon {
+  position: absolute;
+  bottom: -5px;
+  right: 0px;
+}
+.video_author_avatar > .video_detail_author_icon img {
+  width: 12px;
+  height: 12px;
+}
+.video_detail_author_avatar {
+  position: relative;
+}
+.video_detail_author_avatar > .video_detail_author_icon {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+.video_detail_author_avatar > .video_detail_author_icon img {
+  width: 18px;
+  height: 18px;
 }
 .video_author_name {
   display: inline-block;

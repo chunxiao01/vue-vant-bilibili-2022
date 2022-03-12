@@ -53,7 +53,12 @@ export default {
       videodetailauthordata: {
         authorname: "bilibili",
         authorfans: 0,
-        authoravatar: require("@/assets/img/common/0.svg")
+        authoravatar: require("@/assets/img/common/0.svg"),
+        officialverify: {
+          isShowVerify: true,
+          verifytype: 0,
+          verifyiconurl: require("@/assets/img/verify/v_0.svg")
+        }
       },
       videodetailplayinfodata: {
         videodetailplaytitle: "",
@@ -115,10 +120,20 @@ export default {
         if (res && res.data && res.data.data) {
           console.log(res.data.data)
           if (res.data.data.Card) {
-            const { name, fans, face } = res.data.data.Card.card
+            const { name, fans, face, Official } = res.data.data.Card.card
             this.videodetailauthordata.authorname = name
             this.videodetailauthordata.authorfans = numbersFormat(fans)
             this.videodetailauthordata.authoravatar = face
+            if (Official.type < 0) {
+              this.videodetailauthordata.officialverify.isShowVerify = false
+            } else {
+              this.videodetailauthordata.officialverify.isShowVerify = true
+              this.videodetailauthordata.officialverify.verifytype =
+                Official.type
+              this.videodetailauthordata.officialverify.verifyiconurl = require("@/assets/img/verify/v_" +
+                Official.type +
+                ".svg")
+            }
           }
           if (res.data.data.View) {
             const title = res.data.data.View.title
