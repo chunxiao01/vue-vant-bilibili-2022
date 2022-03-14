@@ -1,9 +1,14 @@
 <template>
-  <div><h2>我的</h2></div>
+  <div>
+    <un-login />
+  </div>
 </template>
 
 <script>
-export default {}
+import UnLogin from "./childComps/UnLogin.vue"
+export default {
+  components: { UnLogin }
+}
 </script>
 
 <style></style>

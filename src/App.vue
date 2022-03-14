@@ -21,12 +21,18 @@ export default {
   computed: {
     isShowTabBar() {
       return (
-        this.$route.path === "/search" || this.$route.path === "/videodetail"
+        this.$route.path === "/search" ||
+        this.$route.path === "/videodetail" ||
+        this.$route.path === "/historyview"
       )
     },
     navbartext() {
-      // const route_path = this.$route.path
-      return "哔哩哔哩"
+      const route_path = this.$route.path
+      let res = "哔哩哔哩"
+      if (route_path === "/historyview") {
+        res = "历史记录"
+      }
+      return res
     }
   },
   mounted() {},
