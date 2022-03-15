@@ -12,12 +12,41 @@
       >
         <unlogin-history-view-detail-list
           :unloginhistoryviewlist="unloginhistoryviewdata"
+          :ifShowEditHistory="ifShowEditHistory"
         />
       </scroll>
       <back-top v-show="isShowbacktop" @click.native="clickBackTop" />
     </div>
     <div class="unlogin_historyview_bottomtab">
-      <span class="unlogin_historyview_bottomtab_text">编辑</span>
+      <div class="unlogin_historyview_edit_tab">
+        <span
+          class="unlogin_historyview_bottomtab_text"
+          @click="clickShowEditHistory"
+          >编辑</span
+        >
+      </div>
+      <div class="unlogin_historyview_edit_check_tab" v-if="ifShowEditHistory">
+        <div class="unlogin_historyview_edit_checkall_tab">
+          <span
+            class="unlogin_historyview_edit_checkall_text"
+            @click="clickShowEditCheckAll"
+            ><van-checkbox v-model="checked" checked-color="#ff509b"
+              >全选</van-checkbox
+            ></span
+          >
+        </div>
+        <div class="unlogin_historyview_edit_select_tab">
+          <span class="unlogin_historyview_edit_cancel" @click="clickEditCancel"
+            >取消</span
+          >
+          <span
+            class="unlogin_historyview_edit_delete"
+            @click="clickEditDelete"
+            disabled
+            >删除</span
+          >
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +60,9 @@ export default {
   data() {
     return {
       unloginhistoryviewdata: [],
-      isShowbacktop: false //推荐相关视频列表是否回到顶部
+      isShowbacktop: false, //推荐相关视频列表是否回到顶部
+      ifShowEditHistory: false, //是否显示历史记录编辑
+      checked: false
     }
   },
   mounted() {
@@ -45,97 +76,8 @@ export default {
     }
 
     this.unloginhistoryviewdata = [
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”",
-        name: "",
-        ctime: 0
-      },
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”",
-        name: "",
-        ctime: 0
-      },
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”",
-        name: "",
-        ctime: 0
-      },
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”",
-        name: "",
-        ctime: 0
-      },
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”",
-        name: "",
-        ctime: 0
-      },
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”",
-        name: "",
-        ctime: 0
-      },
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”",
-        name: "",
-        ctime: 0
-      },
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”",
-        name: "",
-        ctime: 0
-      },
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”",
-        name: "",
-        ctime: 0
-      }
-    ]
+      ...this.$store.state.historyViewList
+    ].reverse()
   },
   methods: {
     //动态设置滚动条wrapper高度 body:100vh 减去顶部和底部高度
@@ -157,6 +99,23 @@ export default {
       if (this.$refs.scrollcpn) {
         this.$refs.scrollcpn.scrollBackTop(0, 0, 800)
       }
+    },
+    //是否显示编辑历史记录
+    clickShowEditHistory() {
+      this.ifShowEditHistory = !this.ifShowEditHistory
+    },
+    //全选/全不选 编辑
+    clickShowEditCheckAll() {
+      console.log("全选/全不选 编辑")
+    },
+    //取消编辑
+    clickEditCancel() {
+      this.ifShowEditHistory = !this.ifShowEditHistory
+      console.log("取消编辑")
+    },
+    //删除历史记录
+    clickEditDelete() {
+      console.log("删除历史记录")
     }
   },
   components: {
@@ -176,13 +135,38 @@ export default {
   bottom: 0;
   width: 100%;
   box-sizing: border-box;
-  padding: 15px 0;
+  padding: 15px 8px;
   background-color: #fff;
   border-top: 1px solid #aaa;
   text-align: center;
 }
-.unlogin_historyview_bottomtab_text {
+.unlogin_historyview_bottomtab_text,
+.unlogin_historyview_edit_checkall_text,
+.unlogin_historyview_edit_cancel,
+.unlogin_historyview_edit_delete {
   font-size: 18px;
-  color: #888;
+  color: #555;
+}
+.unlogin_historyview_edit_check_tab {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px 8px;
+  background-color: #fff;
+  border-top: 1px solid #aaa;
+  text-align: center;
+}
+.unlogin_historyview_edit_checkall_tab,
+.unlogin_historyview_edit_select_tab {
+  flex: 1;
+}
+.unlogin_historyview_edit_select_tab {
+  display: flex;
+}
+.unlogin_historyview_edit_cancel,
+.unlogin_historyview_edit_delete {
+  flex: 1;
 }
 </style>

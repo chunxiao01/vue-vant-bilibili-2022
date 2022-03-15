@@ -37,32 +37,9 @@ export default {
     }
   },
   mounted() {
-    this.unloginhistoryviewdata = [
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”"
-      },
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”"
-      },
-      {
-        aid: 339625620,
-        bvid: "BV1QR4y1G7vA",
-        cid: 548527437,
-        short_link: "https://b23.tv/BV1QR4y1G7vA",
-        pic: "http://i1.hdslb.com/bfs/archive/e6b77c462a3d53e7bbbeca8355c8873f550133f9.jpg",
-        title: "“七年了，他还是走不出来”"
-      }
-    ]
+    this.unloginhistoryviewdata = [...this.$store.state.historyViewList]
+      .reverse()
+      .splice(0, 3)
   },
   components: { UnloginHistoryView },
   methods: {

@@ -1,42 +1,49 @@
 <template>
-  <div
-    class="videocard"
-    @click="
-      clickVideoPlayLink(
-        unloginhistoryviewinfo.aid,
-        unloginhistoryviewinfo.bvid,
-        unloginhistoryviewinfo.cid,
-        unloginhistoryviewinfo.short_link
-      )
-    "
-  >
-    <div class="videocard-container">
-      <a class="videocard-img">
-        <div class="videocard-img-container">
-          <img
-            :src="unloginhistoryviewinfo.pic + '@412w_232h_1c.webp'"
-            alt=""
-            class="videocard-img__img"
-          />
-        </div>
-      </a>
-      <div class="videocard-content">
-        <div class="videocard-title">
-          <span class="videocard-title-text">{{
-            unloginhistoryviewinfo.title
-          }}</span>
-        </div>
-        <div class="videocard-up">
-          <span class="videocard-up-icon"></span>
-          <span class="videocard-up-name">{{
-            unloginhistoryviewinfo.name
-          }}</span>
-        </div>
-        <div class="videocard-play-info">
-          <div class="videocard-play-info-detail videocard-play-date">
-            <span class="videocard-play-date-text">{{
-              playDateFormat(unloginhistoryviewinfo.ctime)
+  <div class="unloginhistoryview">
+    <div class="unloginhistoryview-container">
+      <div class="unloginhistoryview-edit" v-if="ifShowEditHistory">
+        <van-checkbox v-model="checked" checked-color="#ff509b"></van-checkbox>
+      </div>
+      <div
+        class="unloginhistoryview-content"
+        @click="
+          clickVideoPlayLink(
+            unloginhistoryviewinfo.aid,
+            unloginhistoryviewinfo.bvid,
+            unloginhistoryviewinfo.cid,
+            unloginhistoryviewinfo.short_link
+          )
+        "
+      >
+        <a class="unloginhistoryview-img">
+          <div class="unloginhistoryview-img-container">
+            <img
+              :src="unloginhistoryviewinfo.pic + '@412w_232h_1c.webp'"
+              alt=""
+              class="unloginhistoryview-img__img"
+            />
+          </div>
+        </a>
+        <div class="unloginhistoryview-info">
+          <div class="unloginhistoryview-title">
+            <span class="unloginhistoryview-title-text">{{
+              unloginhistoryviewinfo.title
             }}</span>
+          </div>
+          <div class="unloginhistoryview-up">
+            <span class="unloginhistoryview-up-icon"></span>
+            <span class="unloginhistoryview-up-name">{{
+              unloginhistoryviewinfo.name
+            }}</span>
+          </div>
+          <div class="unloginhistoryview-play-info">
+            <div
+              class="unloginhistoryview-play-info-detail unloginhistoryview-play-date"
+            >
+              <span class="unloginhistoryview-play-date-text">{{
+                playDateFormat(unloginhistoryviewinfo.ctime)
+              }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -48,12 +55,21 @@
 import { numbersFormat, dateFormat, secondsFormat } from "common/utils"
 
 export default {
+  data() {
+    return {
+      checked: false
+    }
+  },
   props: {
     unloginhistoryviewinfo: {
       type: Object,
       default() {
         return {}
       }
+    },
+    ifShowEditHistory: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -97,19 +113,34 @@ export default {
 }
 </script>
 <style scoped>
-.videocard {
+.unloginhistoryview {
   position: relative;
   box-sizing: border-box;
   padding: 8px;
   border-bottom: 1px solid #cfcfcf;
 }
-.videocard:not(:first-child) {
+.unloginhistoryview:not(:first-child) {
   margin-top: 8px;
 }
-.videocard-container {
+.unloginhistoryview-container {
   display: flex;
 }
-.videocard-img {
+.unloginhistoryview-edit {
+  width: 30px;
+  display: flex;
+  text-align: center;
+}
+.unloginhistoryview-edit >>> .van-checkbox {
+  flex: 1;
+}
+.unloginhistoryview-edit >>> .van-checkbox__icon {
+  display: inline-block;
+}
+.unloginhistoryview-content {
+  flex: 1;
+  display: flex;
+}
+.unloginhistoryview-img {
   position: relative;
   -webkit-box-flex: 0;
   -webkit-flex: none;
@@ -118,7 +149,7 @@ export default {
   height: 100px;
   margin-right: 8px;
 }
-.videocard-content {
+.unloginhistoryview-info {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -136,22 +167,22 @@ export default {
   min-width: 0;
   min-height: 100px;
 }
-.videocard-img-container {
+.unloginhistoryview-img-container {
   position: relative;
   display: inline-block;
   width: 100%;
   height: 100%;
 }
-.videocard-img__error,
-.videocard-img__img,
-.videocard-img__loading {
+.unloginhistoryview-img__error,
+.unloginhistoryview-img__img,
+.unloginhistoryview-img__loading {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 8px;
 }
-.videocard-time {
+.unloginhistoryview-time {
   display: inline-block;
   position: absolute;
   padding: 1px;
@@ -163,7 +194,7 @@ export default {
   border-radius: 5px;
 }
 
-.videocard-title {
+.unloginhistoryview-title {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -175,17 +206,8 @@ export default {
   font-size: 15px;
   word-wrap: break-word;
 }
-.videocard-tag-text {
-  border: 1px solid #ea6da3;
-  color: #ea6da3;
-  font-size: 12px;
-  border-radius: 2px;
-}
-.videocard-tag-text::before {
-  content: "";
-  pointer-events: none;
-}
-.videocard-up-icon {
+
+.unloginhistoryview-up-icon {
   position: relative;
   display: inline-block;
   border: 1px solid #999;
@@ -194,44 +216,18 @@ export default {
   border-radius: 2px;
   margin-right: 1px;
 }
-.videocard-up-icon::before {
+.unloginhistoryview-up-icon::before {
   content: "up";
   pointer-events: none;
 }
-.videocard-up-name {
+.unloginhistoryview-up-name {
   font-size: 14px;
   color: #999;
 }
-.videocard-play-info {
+.unloginhistoryview-play-info {
   display: flex;
 }
-.videocard-play-date {
+.unloginhistoryview-play-date {
   width: 70px;
-}
-.videocard-play-share {
-  width: 50px;
-}
-.videocard-play-counter {
-  flex: 1;
-}
-.videocard-play-icon__img,
-.videocard-share-icon__img {
-  position: relative;
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin-right: 3px;
-  vertical-align: middle;
-}
-.videocard-play-counter-text,
-.videocard-play-date-text {
-  font-size: 14px;
-  color: #666;
-}
-.videocard-play-date {
-  text-align: left;
-}
-.videocard-play-share {
-  text-align: right;
 }
 </style>

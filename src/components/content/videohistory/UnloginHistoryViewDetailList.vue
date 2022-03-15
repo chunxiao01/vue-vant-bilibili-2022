@@ -1,10 +1,11 @@
 <template>
-  <div class="videodetail_list">
+  <div class="unloginhistoryview_list">
     <unlogin-history-view-detail
-      class="videodetail_list_item"
+      class="unloginhistoryview_list_item"
       v-for="(unloginhistoryviewinfo, index) in unloginhistoryviewlist"
       :key="index"
       :unloginhistoryviewinfo="unloginhistoryviewinfo"
+      :ifShowEditHistory="ifShowEditHistory"
     />
   </div>
 </template>
@@ -19,6 +20,10 @@ export default {
       default() {
         return []
       }
+    },
+    ifShowEditHistory: {
+      type: Boolean,
+      default: false
     }
   },
   components: { UnloginHistoryViewDetail }

@@ -48,4 +48,16 @@ function secondsFormat(second) {
   return result
 }
 
+//判断数组对象中是否含有某个元素的属性值，则删除这个元素
+function arrayObjectsomekeyvalue(arr, obj, key, value) {
+  if (
+    arr.some((item, index) => {
+      item[key] === value
+    })
+  ) {
+    arr.splice(index, 1)
+  }
+  return arr
+}
+
 export { numbersFormat, dateFormat, secondsFormat }

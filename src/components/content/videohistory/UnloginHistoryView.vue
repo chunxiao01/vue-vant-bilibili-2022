@@ -1,6 +1,6 @@
 <template>
   <div
-    class="videocard"
+    class="unloginhistoryview"
     @click="
       clickVideoPlayLink(
         unloginhistoryviewinfo.aid,
@@ -10,19 +10,19 @@
       )
     "
   >
-    <div class="videocard-container">
-      <a class="videocard-img">
-        <div class="videocard-img-container">
+    <div class="unloginhistoryview-container">
+      <a class="unloginhistoryview-img">
+        <div class="unloginhistoryview-img-container">
           <img
             :src="unloginhistoryviewinfo.pic + '@412w_232h_1c.webp'"
             alt=""
-            class="videocard-img__img"
+            class="unloginhistoryview-img__img"
           />
         </div>
       </a>
-      <div class="videocard-content">
-        <div class="videocard-title">
-          <span class="videocard-title-text">{{
+      <div class="unloginhistoryview-content">
+        <div class="unloginhistoryview-title">
+          <span class="unloginhistoryview-title-text">{{
             unloginhistoryviewinfo.title
           }}</span>
         </div>
@@ -60,30 +60,30 @@ export default {
 </script>
 
 <style scoped>
-.videocard {
+.unloginhistoryview {
   position: relative;
   box-sizing: border-box;
   padding: 8px;
 }
-.videocard-img {
+.unloginhistoryview-img {
   width: 100%;
 }
-.videocard-img-container {
+.unloginhistoryview-img-container {
   position: relative;
   display: inline-block;
   width: 100%;
   height: 100%;
 }
-.videocard-img__error,
-.videocard-img__img,
-.videocard-img__loading {
+.unloginhistoryview-img__error,
+.unloginhistoryview-img__img,
+.unloginhistoryview-img__loading {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 8px;
 }
-.videocard-title {
+.unloginhistoryview-title {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
