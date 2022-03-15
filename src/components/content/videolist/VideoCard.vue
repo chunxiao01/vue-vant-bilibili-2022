@@ -104,10 +104,6 @@ export default {
 
     //监听图片点击事件
     clickVideoPlayLink(aid, bvid, cid, bvurl) {
-      console.log(aid, bvid, cid, bvurl)
-      // this.$router.push("/videodetail/" + bvid)
-      console.log("视频详情路由跳转!")
-      console.log(this.videoinfo)
       this.recordVideoView()
       this.$router.push({
         path: "/videodetail",
@@ -134,7 +130,7 @@ export default {
         name,
         ctime
       }
-      this.$store.dispatch("addHistoryViewLog", payload)
+      this.$store.dispatch("addHistoryView", payload)
     }
   }
 }

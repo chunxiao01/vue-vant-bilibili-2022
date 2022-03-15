@@ -1,31 +1,18 @@
 import Vue from "vue"
 import Vuex from "vuex"
+import mutations from "./mutations"
+import actions from "./actions"
 
 Vue.use(Vuex)
 
+const state = {
+  historyViewList: []
+}
+
 const store = new Vuex.Store({
-  state: {
-    historyViewList: []
-  },
-  mutations: {
-    deleteHadHistoryViewLog(state, dataindex) {
-      state.historyViewList.splice(dataindex, 1)
-    },
-    addHistoryViewLog(state, payload) {
-      state.historyViewList.push(payload)
-    }
-  },
-  actions: {
-    addHistoryViewLog(context, payload) {
-      for (let i = 0; i < context.state.historyViewList.length; i++) {
-        if (state.historyViewList[i].bvid === payload.bvid) {
-          context.commit("deleteHadHistoryViewLog", i)
-        }
-      }
-      context.commit("addHistoryViewLog", payload)
-    },
-    editHistoryViewLog(state, payload) {}
-  }
+  state,
+  mutations,
+  actions
 })
 
 export default store

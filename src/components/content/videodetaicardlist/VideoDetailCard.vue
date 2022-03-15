@@ -86,9 +86,7 @@ export default {
 
     //监听图片点击事件
     clickVideoPlayLink(aid, bvid, cid, bvurl) {
-      console.log(aid, bvid, cid, bvurl)
-      console.log(123)
-      // this.$router.push("/videodetail/" + bvid)
+      this.recordVideoView()
       this.$router.push({
         path: "/videodetail",
         query: {
@@ -97,6 +95,24 @@ export default {
           cid
         }
       })
+    },
+
+    //添加视频观看记录，以点击视频图片跳转至视频详情为标准
+    recordVideoView() {
+      const { aid, bvid, cid, short_link, pic, title } = this.videodetailinfo
+      const name = this.videodetailinfo.owner.name
+      const ctime = this.playDateFormat(this.videodetailinfo.ctime)
+      const payload = {
+        aid,
+        bvid,
+        cid,
+        short_link,
+        pic,
+        title,
+        name,
+        ctime
+      }
+      this.$store.dispatch("addHistoryView", payload)
     }
   }
 }

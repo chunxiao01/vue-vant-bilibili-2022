@@ -108,6 +108,22 @@ export default {
           cid
         }
       })
+    },
+    //添加视频观看记录，以点击视频图片跳转至视频详情为标准
+    recordVideoView() {
+      const { aid, bvid, cid, short_link, pic, title, name, ctime } =
+        this.unloginhistoryviewinfo
+      const payload = {
+        aid,
+        bvid,
+        cid,
+        short_link,
+        pic,
+        title,
+        name,
+        ctime
+      }
+      this.$store.dispatch("addHistoryView", payload)
     }
   }
 }

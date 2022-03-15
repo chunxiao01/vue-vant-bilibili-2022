@@ -1,0 +1,4 @@
+const DELETE_HAD_HISTORY_VIEW_LOG = "deleteHadHistoryViewLog"
+const ADD_HISTORY_VIEW_LOG = "addHistoryViewLog"
+
+export { DELETE_HAD_HISTORY_VIEW_LOG, ADD_HISTORY_VIEW_LOG }
