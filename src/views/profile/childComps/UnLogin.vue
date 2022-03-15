@@ -102,14 +102,17 @@ export default {
 }
 
 .unlogin_history {
-  padding: 20px 5px;
+  padding: 20px 5px 5px;
   border-bottom: 1px solid #aaa;
 }
 
 .unlogin_history_top {
   display: flex;
+  margin-bottom: 10px;
 }
 .unlogin_history_top span {
+  display: inline-block;
+  flex: 1;
   font-size: 14px;
   color: #888;
 }
@@ -125,10 +128,13 @@ export default {
 }
 
 .unlogin_history_content {
-  display: flex;
+  /* display: flex; */
+  overflow: hidden;
 }
 .unlogin_history_item {
-  flex: 1 1 33.33%;
+  width: 33.33%;
+  float: left;
+  /* flex: 1 1 33.33%; */
 }
 .unlogin_feedback {
   padding: 20px 5px;
