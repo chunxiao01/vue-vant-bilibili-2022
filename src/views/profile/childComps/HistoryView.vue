@@ -82,6 +82,11 @@ export default {
       ...this.$store.state.historyViewList
     ].reverse()
   },
+  // updated() {
+  //   this.unloginhistoryviewdata = [
+  //     ...this.$store.state.historyViewList
+  //   ].reverse()
+  // },
   computed: {
     ...mapGetters(["historyviewinfoArr"]),
     isCheckedAll: {
@@ -135,7 +140,12 @@ export default {
     },
     //删除历史记录
     clickEditDelete() {
+      const payload = this.historyviewinfoArr.filter(
+        (item) => (item.checked = true)
+      )
+      this.$store.dispatch("editHistoryViewLog", payload)
       console.log("删除历史记录")
+      this.ifShowEditHistory = !this.ifShowEditHistory
     }
   },
   components: {

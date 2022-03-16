@@ -12,5 +12,13 @@ export default {
     }
     context.commit(ADD_HISTORY_VIEW_LOG, payload)
   },
-  editHistoryViewLog(state, payload) {}
+  editHistoryViewLog(context, payload) {
+    for (let i = 0; i < context.state.historyViewList.length; i++) {
+      for (let j = 0; j < payload.length; j++) {
+        if (context.state.historyViewList[i].bvid === payload[j].bvid) {
+          context.commit(DELETE_HAD_HISTORY_VIEW_LOG, i)
+        }
+      }
+    }
+  }
 }
