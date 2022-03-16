@@ -21,7 +21,7 @@
         <a class="unloginhistoryview-img">
           <div class="unloginhistoryview-img-container">
             <img
-              :src="unloginhistoryviewinfo.pic + '@412w_232h_1c.webp'"
+              v-lazy="unloginhistoryviewinfo.pic + '@412w_232h_1c.webp'"
               alt=""
               class="unloginhistoryview-img__img"
             />

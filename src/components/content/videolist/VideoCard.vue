@@ -14,7 +14,7 @@
       <a class="videocard-img">
         <div class="videocard-img-container">
           <img
-            :src="videoinfo.pic + '@412w_232h_1c.webp'"
+            v-lazy="videoinfo.pic + '@412w_232h_1c.webp'"
             alt=""
             class="videocard-img__img"
           />

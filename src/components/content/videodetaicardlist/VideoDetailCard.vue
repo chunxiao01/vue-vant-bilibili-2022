@@ -14,7 +14,7 @@
       <a class="videodetailcard_img">
         <div class="videodetailcard_img_container">
           <img
-            :src="videodetailinfo.pic + '@412w_232h_1c.webp'"
+            v-lazy="videodetailinfo.pic + '@412w_232h_1c.webp'"
             alt=""
             class="videodetailcardimg__img"
           />
