@@ -82,11 +82,6 @@ export default {
       ...this.$store.state.historyViewList
     ].reverse()
   },
-  // updated() {
-  //   this.unloginhistoryviewdata = [
-  //     ...this.$store.state.historyViewList
-  //   ].reverse()
-  // },
   computed: {
     ...mapGetters(["historyviewinfoArr"]),
     isCheckedAll: {
@@ -143,9 +138,24 @@ export default {
       const payload = this.historyviewinfoArr.filter(
         (item) => (item.checked = true)
       )
-      this.$store.dispatch("editHistoryViewLog", payload)
-      console.log("删除历史记录")
-      this.ifShowEditHistory = !this.ifShowEditHistory
+      this.$store.dispatch("editHistoryViewLog", payload).then(() => {
+        console.log("删除历史记录")
+        this.ifShowEditHistory = !this.ifShowEditHistory
+
+        this.unloginhistoryviewdata = [
+          ...this.$store.state.historyViewList
+        ].reverse()
+
+        const dom_scrollwrapper =
+          document.getElementsByClassName("__scroll__wrapper")
+        if (dom_scrollwrapper && dom_scrollwrapper[0]) {
+          dom_scrollwrapper[0].style.height =
+            this.setscrollwrapperheight() + "px"
+        }
+        if (this.$refs.scrollcpn) {
+          this.$refs.scrollcpn.scrollRefresh()
+        }
+      })
     }
   },
   components: {
