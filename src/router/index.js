@@ -12,6 +12,8 @@ const Search = () => import("views/search/Search")
 
 const VideoDetail = () => import("views/videodetail/VideoDetail")
 
+const Err404 = () => import("components/common/err/Err404")
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -42,11 +44,16 @@ const routes = [
   {
     path: "/videodetail",
     component: VideoDetail
+  },
+  {
+    path: "*",
+    component: Err404
   }
 ]
 
 const router = new VueRouter({
   routes,
+  base: "/vue_vant_bilibili_2022/",
   mode: "history"
 })
 

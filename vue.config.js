@@ -18,6 +18,8 @@ function resolve(dir) {
 // }
 
 module.exports = {
+  publicPath: "/vue_vant_bilibili_2022/",
+  productionSourceMap: false,
   configureWebpack: {
     resolve: {
       alias: {
