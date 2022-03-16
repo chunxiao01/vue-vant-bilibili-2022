@@ -11,6 +11,7 @@
         @scrollposition="scrollPosition"
       >
         <unlogin-history-view-detail-list
+          ref="unloginhistoryviewdetaillist"
           :unloginhistoryviewlist="unloginhistoryviewdata"
           :ifShowEditHistory="ifShowEditHistory"
         />
@@ -27,10 +28,11 @@
       </div>
       <div class="unlogin_historyview_edit_check_tab" v-if="ifShowEditHistory">
         <div class="unlogin_historyview_edit_checkall_tab">
-          <span
-            class="unlogin_historyview_edit_checkall_text"
-            @click="clickShowEditCheckAll"
-            ><van-checkbox v-model="checked" checked-color="#ff509b"
+          <span class="unlogin_historyview_edit_checkall_text"
+            ><van-checkbox
+              v-model="isCheckedAll"
+              checked-color="#ff509b"
+              @click="clickEditCheckAll"
               >全选</van-checkbox
             ></span
           >
@@ -56,13 +58,14 @@ import Scroll from "components/common/scroll/Scroll"
 import BackTop from "components/common/backtop/BackTop"
 import UnloginHistoryViewDetailList from "components/content/videohistory/UnloginHistoryViewDetailList.vue"
 
+import { mapGetters } from "vuex"
+
 export default {
   data() {
     return {
       unloginhistoryviewdata: [],
       isShowbacktop: false, //推荐相关视频列表是否回到顶部
-      ifShowEditHistory: false, //是否显示历史记录编辑
-      checked: false
+      ifShowEditHistory: false //是否显示历史记录编辑
     }
   },
   mounted() {
@@ -78,6 +81,19 @@ export default {
     this.unloginhistoryviewdata = [
       ...this.$store.state.historyViewList
     ].reverse()
+  },
+  computed: {
+    ...mapGetters(["historyviewinfoArr"]),
+    isCheckedAll: {
+      get() {
+        if (this.historyviewinfoArr.length === 0) {
+          return false
+        }
+        //return !this.historyviewinfoArr.filter((item) => !item.checked).length
+        return !this.historyviewinfoArr.find((item) => !item.checked)
+      },
+      set(res) {}
+    }
   },
   methods: {
     //动态设置滚动条wrapper高度 body:100vh 减去顶部和底部高度
@@ -105,13 +121,17 @@ export default {
       this.ifShowEditHistory = !this.ifShowEditHistory
     },
     //全选/全不选 编辑
-    clickShowEditCheckAll() {
-      console.log("全选/全不选 编辑")
+    clickEditCheckAll() {
+      if (this.isCheckedAll) {
+        this.historyviewinfoArr.forEach((item) => (item.checked = false))
+      } else {
+        this.historyviewinfoArr.forEach((item) => (item.checked = true))
+      }
     },
     //取消编辑
     clickEditCancel() {
+      this.historyviewinfoArr.forEach((item) => (item.checked = false))
       this.ifShowEditHistory = !this.ifShowEditHistory
-      console.log("取消编辑")
     },
     //删除历史记录
     clickEditDelete() {

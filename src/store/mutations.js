@@ -8,6 +8,7 @@ export default {
     state.historyViewList.splice(dataindex, 1)
   },
   [ADD_HISTORY_VIEW_LOG](state, payload) {
+    payload.checked = false //默认 历史记录 编辑状态下是未选中状态
     state.historyViewList.push(payload)
   }
 }

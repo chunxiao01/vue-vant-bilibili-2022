@@ -2,7 +2,10 @@
   <div class="unloginhistoryview">
     <div class="unloginhistoryview-container">
       <div class="unloginhistoryview-edit" v-if="ifShowEditHistory">
-        <van-checkbox v-model="checked" checked-color="#ff509b"></van-checkbox>
+        <van-checkbox
+          v-model="unloginhistoryviewinfo.checked"
+          checked-color="#ff509b"
+        ></van-checkbox>
       </div>
       <div
         class="unloginhistoryview-content"
@@ -55,11 +58,6 @@
 import { numbersFormat, dateFormat, secondsFormat } from "common/utils"
 
 export default {
-  data() {
-    return {
-      checked: false
-    }
-  },
   props: {
     unloginhistoryviewinfo: {
       type: Object,
@@ -109,6 +107,7 @@ export default {
         }
       })
     },
+
     //添加视频观看记录，以点击视频图片跳转至视频详情为标准
     recordVideoView() {
       const { aid, bvid, cid, short_link, pic, title, name, ctime } =
