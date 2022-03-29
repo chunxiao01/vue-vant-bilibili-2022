@@ -30,5 +30,17 @@ module.exports = {
         views: "@/views"
       }
     }
+  },
+  devServer: {
+    // https: false,
+    // hotOnly: false,
+    proxy: {
+      "/api": {
+        target: "https://api.bilibili.com/x/web-interface",
+        pathRewrite: {
+          "^/api": ""
+        }
+      }
+    }
   }
 }

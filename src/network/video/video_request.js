@@ -14,7 +14,7 @@ const getVideoDetailRelateddata = (
   need_rcmd_reason
 ) => {
   return request({
-    url: "/bilibili_detail_related",
+    url: "/view/detail",
     params: {
       aid,
       bvid,

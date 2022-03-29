@@ -8,7 +8,7 @@ pn:页数
 const getHomeHotMultidata = (ps, pn) => {
   return request({
     // url: "https://www.bilibili.com/index/ding.json"
-    url: "/bilibili_hot",
+    url: "/popular",
     params: {
       ps,
       pn
