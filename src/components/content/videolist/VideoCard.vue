@@ -246,10 +246,10 @@ export default {
   display: flex;
 }
 .videocard-play-date {
-  width: 70px;
+  width: 55px;
 }
 .videocard-play-share {
-  width: 50px;
+  width: 40px;
 }
 .videocard-play-counter {
   flex: 1;
