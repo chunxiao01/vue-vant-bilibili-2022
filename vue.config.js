@@ -18,7 +18,8 @@ function resolve(dir) {
 // }
 
 module.exports = {
-  publicPath: "/vue_vant_bilibili_2022/",
+  publicPath:
+    process.env.NODE_ENV === "production" ? "/vue_vant_bilibili_2022/" : "/",
   productionSourceMap: false,
   configureWebpack: {
     resolve: {
@@ -31,6 +32,9 @@ module.exports = {
       }
     }
   },
+  // css: {
+  //   extract: true
+  // },
   devServer: {
     // https: false,
     // hotOnly: false,
